@@ -34,5 +34,12 @@ describe Account do
         subject.balance
       }.from(AMOUNT).to(0)
     end
+
+    it 'can\'t do overdraft' do
+      subject.deposit(amount: AMOUNT)
+      expect do
+        subject.withdraw(amount: 2 * AMOUNT)
+      end.to(raise_error { Account::INSUFFICIENT_BALANCE })
+    end
   end
 end

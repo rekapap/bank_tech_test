@@ -1,5 +1,7 @@
 # Bank Account
 class Account
+  INSUFFICIENT_BALANCE = 'No sufficient balance available'.freeze
+
   def initialize
     @balance = 0
   end
@@ -13,6 +15,8 @@ class Account
   end
 
   def withdraw(amount:)
+    raise INSUFFICIENT_BALANCE if amount > @balance
+
     @balance -= amount
   end
 end
