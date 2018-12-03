@@ -16,5 +16,13 @@ describe Account do
         subject.balance
       }.from(0).to(AMOUNT)
     end
+
+    it 'can add money to the balance multiple times' do
+      AMOUNT = 1000
+      subject.deposit(amount: AMOUNT)
+      expect { subject.deposit(amount: AMOUNT) }.to change {
+        subject.balance
+      }.from(AMOUNT).to(AMOUNT + AMOUNT)
+    end
   end
 end
