@@ -1,7 +1,11 @@
 require 'account'
+require 'transaction_log'
 
 describe Account do
-  subject { described_class.new }
+  let(:array) { double :array }
+  let(:transactionlog) { double :transactionlog, add: array }
+  let(:transactionlog_class) { double :transactionlog_class, new: transactionlog }
+  subject { described_class.new(transactionlog_class: transactionlog_class) }
   before(:all) do
     AMOUNT = 1000
   end
@@ -40,6 +44,12 @@ describe Account do
       expect do
         subject.withdraw(amount: 2 * AMOUNT)
       end.to(raise_error { Account::INSUFFICIENT_BALANCE })
+    end
+  end
+
+  describe '#log' do
+    it 'returns the transaction log' do
+      expect(subject.log).to be_a(transactionlog.class)
     end
   end
 end
