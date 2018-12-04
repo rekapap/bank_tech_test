@@ -4,8 +4,8 @@ class TransactionLog
     @data = []
   end
 
-  def add(amount:)
-    @data << { amount: amount}
+  def add(amount:, date:)
+    @data << { amount: amount, date: date }
   end
 
   def data
