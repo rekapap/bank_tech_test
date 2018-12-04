@@ -12,9 +12,9 @@ class Account
     @balance.dup
   end
 
-  def deposit(amount:)
+  def deposit(amount:, date:)
     @balance += amount
-    @log.add(amount: amount)
+    @log.add(amount: amount, date: date)
   end
 
   def withdraw(amount:)

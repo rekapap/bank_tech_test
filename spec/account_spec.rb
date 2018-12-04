@@ -16,35 +16,35 @@ describe Account do
   end
 
   describe '#deposit' do
-    it 'adds money to the balance' do
-      expect { subject.deposit(amount: AMOUNT) }.to change {
+    it 'adds money with the date to the balance' do
+      expect { subject.deposit(amount: AMOUNT, date: DATE) }.to change {
         subject.balance
       }.from(0).to(AMOUNT)
     end
 
     it 'can add money to the balance multiple times' do
-      subject.deposit(amount: AMOUNT)
-      expect { subject.deposit(amount: AMOUNT) }.to change {
+      subject.deposit(amount: AMOUNT, date: DATE)
+      expect { subject.deposit(amount: AMOUNT, date: DATE) }.to change {
         subject.balance
       }.from(AMOUNT).to(AMOUNT + AMOUNT)
     end
 
-    it 'add the amount the the transactionlog' do
-      expect(transactionlog).to receive(:add).with(amount: AMOUNT)
-      subject.deposit(amount: AMOUNT)
+    it 'add the amount and date to the the transactionlog' do
+      expect(transactionlog).to receive(:add).with(amount: AMOUNT, date: DATE)
+      subject.deposit(amount: AMOUNT, date: DATE)
     end
   end
 
   describe '#withdraw' do
-    it 'withdraw money from the balance' do
-      subject.deposit(amount: AMOUNT)
+    it 'withdraw money from the balance with date' do
+      subject.deposit(amount: AMOUNT, date: DATE)
       expect { subject.withdraw(amount: AMOUNT) }.to change {
         subject.balance
       }.from(AMOUNT).to(0)
     end
 
     it 'can\'t do overdraft' do
-      subject.deposit(amount: AMOUNT)
+      subject.deposit(amount: AMOUNT, date: DATE)
       expect do
         subject.withdraw(amount: 2 * AMOUNT)
       end.to(raise_error { Account::INSUFFICIENT_BALANCE })
