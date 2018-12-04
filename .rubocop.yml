@@ -1,1 +1,11 @@
 inherit_from: .rubocop_todo.yml
+
+Metrics/LineLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
