@@ -38,7 +38,7 @@ describe Account do
   describe '#withdraw' do
     it 'withdraw money from the balance with date' do
       subject.deposit(amount: AMOUNT, date: DATE)
-      expect { subject.withdraw(amount: AMOUNT) }.to change {
+      expect { subject.withdraw(amount: AMOUNT, date: DATE) }.to change {
         subject.balance
       }.from(AMOUNT).to(0)
     end
@@ -46,8 +46,14 @@ describe Account do
     it 'can\'t do overdraft' do
       subject.deposit(amount: AMOUNT, date: DATE)
       expect do
-        subject.withdraw(amount: 2 * AMOUNT)
+        subject.withdraw(amount: 2 * AMOUNT, date: DATE)
       end.to(raise_error { Account::INSUFFICIENT_BALANCE })
+    end
+
+    it 'add the negative amount and date to the the transactionlog' do
+      subject.deposit(amount: AMOUNT, date: DATE)
+      expect(transactionlog).to receive(:add).with(amount: -AMOUNT, date: DATE)
+      subject.withdraw(amount: AMOUNT, date: DATE)
     end
   end
 

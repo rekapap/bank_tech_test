@@ -17,10 +17,11 @@ class Account
     @log.add(amount: amount, date: date)
   end
 
-  def withdraw(amount:)
+  def withdraw(amount:, date:)
     raise INSUFFICIENT_BALANCE if amount > @balance
 
     @balance -= amount
+    @log.add(amount: -amount, date: date)
   end
 
   def log
