@@ -21,8 +21,9 @@ class StatementPrinter
   end
 
   def self.transaction_string(amount)
-    amount_string = amount_format(amount)
-    amount_string + ' ||       '
+    amount_string = amount_format(amount.abs)
+    return amount_string + ' ||       ' if amount > 0
+    '        || ' + amount_string
   end
 
   def self.amount_format(amount)

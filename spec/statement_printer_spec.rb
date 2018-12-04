@@ -15,7 +15,7 @@ describe StatementPrinter do
     end
 
     context 'not empty record' do
-      context 'desposit records only' do
+      context 'desposit records' do
         let(:bank_statement) do
           "   date    ||  credit ||  debit || balance\n" \
           '01/01/2018 || 1000.00 ||        ||'
@@ -26,7 +26,19 @@ describe StatementPrinter do
           expect(described_class.print(transactionlog)).to eq(bank_statement)
         end
       end
+      context 'withdrawal records' do
+        let(:bank_statement) do
+          "   date    ||  credit ||  debit || balance\n" \
+          '01/01/2018 ||         || 1000.00 ||'
+        end
+        let(:array) { [{ amount: -AMOUNT, date: Date.parse(DATE) }] }
+        let(:transactionlog) { double :transactionlog, data: array }
+        it 'can print out the date and the amount in the debit column' do
+          expect(described_class.print(transactionlog)).to eq(bank_statement)
+        end
+      end
     end
+
     context ' reverse transaction order' do
       let(:bank_statement) do
         "   date    ||  credit ||  debit || balance\n" \
