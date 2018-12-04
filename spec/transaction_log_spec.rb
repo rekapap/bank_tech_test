@@ -4,9 +4,14 @@ describe TransactionLog do
   subject { described_class.new }
 
   describe '#add' do
-    it 'adds a new recod to the log' do
+    it 'adds a new hash recod to the log' do
       subject.add(amount: AMOUNT)
-      expect(subject.data).to include(amount: AMOUNT)
+      expect(subject.data.first).to be_a(Hash)
+    end
+
+    it 'adds the amount to the log' do
+      subject.add(amount: AMOUNT)
+      expect(subject.data.first[:amount]).to eq(AMOUNT)
     end
   end
 

@@ -5,7 +5,7 @@ class TransactionLog
   end
 
   def add(amount:)
-    @data << { amount: amount }
+    @data << { amount: amount}
   end
 
   def data
