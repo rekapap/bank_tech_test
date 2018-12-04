@@ -5,24 +5,29 @@ describe TransactionLog do
 
   describe '#add' do
     it 'adds a new hash recod to the log' do
-      subject.add(amount: AMOUNT, date: DATE)
+      subject.add(amount: AMOUNT, date: DATE, balance: AMOUNT)
       expect(subject.data.first).to be_a(Hash)
     end
 
     it 'adds the amount to the log' do
-      subject.add(amount: AMOUNT, date: DATE)
+      subject.add(amount: AMOUNT, date: DATE, balance: AMOUNT)
       expect(subject.data.first[:amount]).to eq(AMOUNT)
     end
 
     it 'adds the date to the log' do
       allow(Date).to receive(:parse).and_return(DATE)
-      subject.add(amount: AMOUNT, date: DATE)
+      subject.add(amount: AMOUNT, date: DATE, balance: AMOUNT)
       expect(subject.data.first[:date]).to eq(DATE)
     end
 
     it 'stores the date as a Date type' do
       expect(Date).to receive(:parse)
-      subject.add(amount: AMOUNT, date: DATE)
+      subject.add(amount: AMOUNT, date: DATE, balance: AMOUNT)
+    end
+
+    it 'adds the balance to the record' do
+      subject.add(amount: AMOUNT, date: DATE, balance: AMOUNT)
+      expect(subject.data.first[:balance]).to eq(AMOUNT)
     end
   end
 

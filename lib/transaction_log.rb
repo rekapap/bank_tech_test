@@ -5,9 +5,9 @@ class TransactionLog
     @data = []
   end
 
-  def add(amount:, date:)
+  def add(amount:, date:, balance:)
     parsed_date = Date.parse(date)
-    @data << { amount: amount, date: parsed_date }
+    @data << { amount: amount, date: parsed_date, balance: balance }
   end
 
   def data

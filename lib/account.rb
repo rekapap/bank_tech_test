@@ -17,7 +17,7 @@ class Account
     raise ZERO_AMOUNT if amount.zero?
 
     @balance += amount
-    @log.add(amount: amount, date: date)
+    @log.add(amount: amount, date: date, balance: balance)
   end
 
   def withdraw(amount:, date:)
@@ -25,7 +25,7 @@ class Account
     raise INSUFFICIENT_BALANCE if amount > @balance
 
     @balance -= amount
-    @log.add(amount: -amount, date: date)
+    @log.add(amount: -amount, date: date, balance: balance)
   end
 
   def log

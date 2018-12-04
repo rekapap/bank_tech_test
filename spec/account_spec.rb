@@ -29,8 +29,8 @@ describe Account do
       }.from(AMOUNT).to(AMOUNT + AMOUNT)
     end
 
-    it 'add the amount and date to the the transactionlog' do
-      expect(transactionlog).to receive(:add).with(amount: AMOUNT, date: DATE)
+    it 'add the amount, date and balance to the the transactionlog' do
+      expect(transactionlog).to receive(:add).with(amount: AMOUNT, date: DATE, balance: AMOUNT)
       subject.deposit(amount: AMOUNT, date: DATE)
     end
 
@@ -56,9 +56,9 @@ describe Account do
       end.to(raise_error { Account::INSUFFICIENT_BALANCE })
     end
 
-    it 'add the negative amount and date to the the transactionlog' do
+    it 'add the negative amount, date, balance to the the transactionlog' do
       subject.deposit(amount: AMOUNT, date: DATE)
-      expect(transactionlog).to receive(:add).with(amount: -AMOUNT, date: DATE)
+      expect(transactionlog).to receive(:add).with(amount: -AMOUNT, date: DATE, balance: ZERO)
       subject.withdraw(amount: AMOUNT, date: DATE)
     end
 
