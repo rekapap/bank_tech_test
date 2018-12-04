@@ -27,5 +27,19 @@ describe StatementPrinter do
         end
       end
     end
+    context ' reverse transaction order' do
+      let(:bank_statement) do
+        "   date    ||  credit ||  debit || balance\n" \
+        "02/01/2018 || 6789.00 ||        ||\n" \
+        '01/01/2018 || 1000.00 ||        ||'
+      end
+      let(:record_2) { { amount: AMOUNT_2, date: Date.parse(DATE_2) } }
+      let(:record_1) { { amount: AMOUNT, date: Date.parse(DATE) } }
+      let(:array) { [record_1, record_2] }
+      let(:transactionlog) { double :transactionlog, data: array }
+      it 'can print out multiple deposits in reverse order' do
+        expect(described_class.print(transactionlog)).to eq(bank_statement)
+      end
+    end
   end
 end

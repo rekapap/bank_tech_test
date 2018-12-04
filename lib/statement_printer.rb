@@ -9,7 +9,7 @@ class StatementPrinter
     record_log = log.map do |record|
       make_string_record(record)
     end
-    HEADER + "\n" + record_log.join("\n")
+    HEADER + "\n" + record_log.reverse.join("\n")
   end
 
   private_class_method

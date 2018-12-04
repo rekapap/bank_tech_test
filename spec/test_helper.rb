@@ -1,2 +1,4 @@
 AMOUNT = 1000
 DATE = '01-01-2018'.freeze
+AMOUNT_2 = 6789
+DATE_2 = '02-01-2018'.freeze
