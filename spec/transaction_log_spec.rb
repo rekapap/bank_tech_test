@@ -15,8 +15,14 @@ describe TransactionLog do
     end
 
     it 'adds the date to the log' do
+      allow(Date).to receive(:parse).and_return(DATE)
       subject.add(amount: AMOUNT, date: DATE)
       expect(subject.data.first[:date]).to eq(DATE)
+    end
+
+    it 'stores the date as a Date type' do
+      expect(Date).to receive(:parse)
+      subject.add(amount: AMOUNT, date: DATE)
     end
   end
 

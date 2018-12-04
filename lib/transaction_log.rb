@@ -1,3 +1,4 @@
+require 'date'
 # Transaction Log class
 class TransactionLog
   def initialize
@@ -5,7 +6,8 @@ class TransactionLog
   end
 
   def add(amount:, date:)
-    @data << { amount: amount, date: date }
+    parsed_date = Date.parse(date)
+    @data << { amount: amount, date: parsed_date }
   end
 
   def data
