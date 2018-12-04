@@ -12,26 +12,29 @@ class StatementPrinter
     HEADER + "\n" + record_log.reverse.join("\n")
   end
 
-  private_class_method
+  class << self
+    private
 
-  def self.make_string_record(record)
-    date = date_format(record[:date])
-    transaction = transaction_string(record[:amount])
-    balance = amount_format(record[:balance])
-    date + ' || ' + transaction + ' || ' + balance
-  end
+    def make_string_record(record)
+      date = date_format(record[:date])
+      transaction = transaction_string(record[:amount])
+      balance = amount_format(record[:balance])
+      date + ' || ' + transaction + ' || ' + balance
+    end
 
-  def self.transaction_string(amount)
-    amount_string = amount_format(amount.abs)
-    return amount_string + ' ||       ' if amount > 0
-    '        || ' + amount_string
-  end
+    def transaction_string(amount)
+      amount_string = amount_format(amount.abs)
+      return amount_string + ' ||       ' if amount > 0
 
-  def self.amount_format(amount)
-    format('%.2f', amount)
-  end
+      '        || ' + amount_string
+    end
 
-  def self.date_format(date)
-    date.strftime('%d/%m/%Y')
+    def amount_format(amount)
+      format('%.2f', amount)
+    end
+
+    def date_format(date)
+      date.strftime('%d/%m/%Y')
+    end
   end
 end
