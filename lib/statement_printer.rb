@@ -17,7 +17,8 @@ class StatementPrinter
   def self.make_string_record(record)
     date = date_format(record[:date])
     transaction = transaction_string(record[:amount])
-    date + ' || ' + transaction + ' ||'
+    balance = amount_format(record[:balance])
+    date + ' || ' + transaction + ' || ' + balance
   end
 
   def self.transaction_string(amount)
