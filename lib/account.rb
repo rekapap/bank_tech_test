@@ -14,6 +14,7 @@ class Account
 
   def deposit(amount:)
     @balance += amount
+    @log.add(amount: amount)
   end
 
   def withdraw(amount:)

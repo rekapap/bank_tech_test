@@ -4,7 +4,9 @@ require 'transaction_log'
 describe Account do
   let(:array) { double :array }
   let(:transactionlog) { double :transactionlog, add: array }
-  let(:transactionlog_class) { double :transactionlog_class, new: transactionlog }
+  let(:transactionlog_class) do
+    double :transactionlog_class, new: transactionlog
+  end
   subject { described_class.new(transactionlog_class: transactionlog_class) }
   before(:all) do
     AMOUNT = 1000
@@ -28,6 +30,11 @@ describe Account do
       expect { subject.deposit(amount: AMOUNT) }.to change {
         subject.balance
       }.from(AMOUNT).to(AMOUNT + AMOUNT)
+    end
+
+    it 'add the amount the the transactionlog' do
+      expect(transactionlog).to receive(:add).with(amount: AMOUNT)
+      subject.deposit(amount: AMOUNT)
     end
   end
 
