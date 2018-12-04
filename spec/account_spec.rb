@@ -8,9 +8,6 @@ describe Account do
     double :transactionlog_class, new: transactionlog
   end
   subject { described_class.new(transactionlog_class: transactionlog_class) }
-  before(:all) do
-    AMOUNT = 1000
-  end
 
   describe '#balance' do
     it 'has zero as an initial balance' do

@@ -2,9 +2,6 @@ require 'transaction_log'
 
 describe TransactionLog do
   subject { described_class.new }
-  before(:all) do
-    AMOUNT = 1000
-  end
 
   describe '#add' do
     it 'adds a new recod to the log' do
