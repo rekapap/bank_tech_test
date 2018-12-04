@@ -33,6 +33,12 @@ describe Account do
       expect(transactionlog).to receive(:add).with(amount: AMOUNT, date: DATE)
       subject.deposit(amount: AMOUNT, date: DATE)
     end
+
+    it 'raises error if amount is zero' do
+      expect do
+        subject.deposit(amount: ZERO, date: DATE)
+      end.to(raise_error { Account::ZERO_AMOUNT })
+    end
   end
 
   describe '#withdraw' do
@@ -54,6 +60,13 @@ describe Account do
       subject.deposit(amount: AMOUNT, date: DATE)
       expect(transactionlog).to receive(:add).with(amount: -AMOUNT, date: DATE)
       subject.withdraw(amount: AMOUNT, date: DATE)
+    end
+
+    it 'raises error if amount is zero' do
+      subject.deposit(amount: AMOUNT, date: DATE)
+      expect do
+        subject.withdraw(amount: ZERO, date: DATE)
+      end.to(raise_error { Account::ZERO_AMOUNT })
     end
   end
 
